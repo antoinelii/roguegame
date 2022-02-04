@@ -14,7 +14,7 @@ from map import *
 
 ####### GAME CONSTANTS ############
 
-FPS = 5
+FPS = 10
 
 DIRECTIONS = {
     "DOWN": (0, +1),

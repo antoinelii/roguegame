@@ -12,8 +12,13 @@ class Player:
     def move(self, direction, map):
         x, y = self.position
         dx, dy = direction
-        pos = (x + dx, y + dy)
-        self.position = pos
-        
-        
+        pos = [x + dx, y + dy]
+        possible = map['green'] + map['grey']
+        if pos in possible:
+            self.position = pos
+        else:
+            pass
+
+
+
 
