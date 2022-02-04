@@ -1,3 +1,3 @@
 # roguegame
 Il faut exécuter le fichier rogue.py pour essayer le jeu.
-Pour l'instant j'arrive seulement à tracer des maps aléatoires.
+Pour l'instant j'arrive seulement à tracer des maps aléatoire. Le jeu ne fonctionne pas vraiment, j'arrive à créer des objets et des monstres lors de l'entrée dans une salle à faire récupérer les objets mais mes combats avec les monstres ne produisent rien. Par ailleurs j'ai un problème récurrent (UnboundLocalError: local variable 'il' referenced before assignment) lorsque j'entre dans d'autres salles que je n'ai pas encore résolu.
