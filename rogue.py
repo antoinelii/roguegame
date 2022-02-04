@@ -27,10 +27,12 @@ DIRECTIONS = {
 # ------------------------------------------------------------------------------
 
 class State:
-    def __init__(self, player, map, monsters):
+    def __init__(self, player, map, rooms_edges, monsters, items):
         self.player = player
         self.map = map
+        self.rooms_edges = rooms_edges
         self.monsters = monsters
+        self.items = items
 
 #######Initiate the game#########
 
@@ -40,7 +42,7 @@ map, rooms_edges = random_map()
 x0, x1, y0, y1 = rooms_edges['4']
 position = (x0 + 1, y0 + 1)
 
-state = State(Player(position, {}, 12, 16, 0, 5), map, 0)
+state = State(Player(position, {}, 12, 16, 0, 5), map, rooms_edges, Monster([]).positions, Items([]).item_positions)
 
 ###### Integration into the general Game frame#######
 player = state.player
@@ -56,18 +58,26 @@ class RogueGame(Game):
                 self.quit()
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_DOWN:
-                    player.move(DIRECTIONS["DOWN"], state.map)
+                    player.move(DIRECTIONS["DOWN"], state.map, state.rooms_edges, state.monsters, state.items)
                 elif event.key == pg.K_UP:
-                    player.move(DIRECTIONS["UP"], state.map)
+                    player.move(DIRECTIONS["UP"], state.map, state.rooms_edges, state.monsters, state.items)
                 elif event.key == pg.K_RIGHT:
-                    player.move(DIRECTIONS["RIGHT"], state.map)
+                    player.move(DIRECTIONS["RIGHT"], state.map, state.rooms_edges, state.monsters, state.items)
                 elif event.key == pg.K_LEFT:
-                    player.move(DIRECTIONS["LEFT"], state.map)
+                    player.move(DIRECTIONS["LEFT"], state.map, state.rooms_edges, state.monsters, state.items)
+        if player.stepcount >18:
+            player.hits += 1
+            player.stepcount = 0
         if player.hits < 1:
             self.quit(error="R.I.P")
     def draw(self):
         self.caption = f"hits = {player.hits}, str = {player.str}, gold = {player.gold}, armor = {player.armor}"
         draw_map(self.screen, state.map)
+        for x, y in state.monsters:
+            draw_tile(self.screen, x, y, WHITE)
+        for elem in state.items:
+            x, y = elem[0:2]
+            draw_tile(self.screen, x, y, YELLOW)
         x, y = player.position
         draw_tile(self.screen, x, y, ORANGE)
 

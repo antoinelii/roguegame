@@ -43,13 +43,13 @@ def random_room(width = 30, height = 20):
     """Returns a 4-tuple (x, y, dx, dy) position and size of a randomly created 
     room in a rectangle.
     We want to define rooms within the big rectangles. We randomly choose the size 
-    of the room (width between 2 and width-6, height bet2 and height-4)
+    of the room (width between 4 and width-6, height between 4 and height-4)
     We will then add walls around it.
     Then we randomly choose the position with consideration to the size of the room
     We also want to leave room between the wall and the edges of the rectangle so we 
     can build paths between rooms"""
-    dx = rd.randint(3, width - 6)
-    dy = rd.randint(3, height - 4)
+    dx = rd.randint(4, width - 6)
+    dy = rd.randint(4, height - 4)
     #Choose down-left corner brick position
     x = rd.randint(1, width - (dx + 3))
     y = rd.randint(1, height - (dy + 3))
